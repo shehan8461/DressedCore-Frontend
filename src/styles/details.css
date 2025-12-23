@@ -1,0 +1,193 @@
+/* Form Cards */
+.form-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Design Details */
+.design-details-container {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+}
+
+.design-details-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.design-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.design-details-header h1 {
+  font-size: 1.8rem;
+  color: #111827;
+  margin: 0;
+}
+
+.design-details-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.detail-section h3 {
+  color: #111827;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.detail-section p {
+  color: #6b7280;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.specifications-text {
+  white-space: pre-wrap;
+  background: #f9fafb;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.detail-item strong {
+  color: #6b7280;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.detail-item span {
+  color: #111827;
+  font-weight: 500;
+}
+
+.files-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.file-link-large {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem;
+  background: #f0fdf4;
+  color: #059669;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.file-link-large:hover {
+  background: #dcfce7;
+}
+
+/* Quote Section (Supplier) */
+.quote-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-prompt {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.quote-prompt h3 {
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.quote-prompt p {
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+.existing-quotes-info {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e5e7eb;
+}
+
+.existing-quotes-info h4 {
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.competition-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.competition-stats .stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.competition-stats .stat-label {
+  color: #6b7280;
+}
+
+.competition-stats .stat-value {
+  font-weight: bold;
+  color: #111827;
+}
+
+.quote-form-container {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quote-form-container h3 {
+  color: #111827;
+  margin-bottom: 1.5rem;
+}
+
+.quote-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .design-details-container {
+    grid-template-columns: 1fr;
+  }
+}
