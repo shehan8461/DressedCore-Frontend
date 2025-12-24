@@ -135,12 +135,12 @@ function MyDesigns() {
               </div>
 
               <div className="design-card-footer">
-                <Link
+                {/* <Link
                   to={`/designer/designs/${design.id}`}
                   className="btn-outline btn-small"
                 >
                   View Details
-                </Link>
+                </Link> */}
                 <Link
                   to={`/designer/designs/${design.id}/quotes`}
                   className="btn-primary btn-small"
