@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { designAPI, quoteAPI } from '../../services/api';
+import PaymentForm from '../../components/PaymentForm';
 
 function DesignQuotes() {
   const { id } = useParams();
   const [design, setDesign] = useState(null);
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedQuote, setSelectedQuote] = useState(null);
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -28,14 +31,32 @@ function DesignQuotes() {
     }
   };
 
-  const handleAcceptQuote = async (quoteId) => {
+  const handleAcceptQuote = async (quote) => {
     try {
-      await quoteAPI.updateStatus(quoteId, 'Accepted');
-      fetchData(); // Refresh data
-      alert('Quote accepted successfully!');
+      // Update quote status to Accepted
+      await quoteAPI.updateStatus(quote.id, 'Accepted');
+      
+      // Store selected quote and show payment form
+      setSelectedQuote(quote);
+      setShowPaymentForm(true);
+      
+      // Refresh data
+      fetchData();
     } catch (error) {
       alert('Failed to accept quote');
     }
+  };
+
+  const handlePaymentSuccess = (orderResult) => {
+    setShowPaymentForm(false);
+    setSelectedQuote(null);
+    alert(`Order ${orderResult.orderNumber} created successfully! Payment completed.`);
+    fetchData();
+  };
+
+  const handlePaymentCancel = () => {
+    setShowPaymentForm(false);
+    setSelectedQuote(null);
   };
 
   const handleRejectQuote = async (quoteId) => {
@@ -144,17 +165,17 @@ function DesignQuotes() {
                     Reject
                   </button>
                   <button
-                    onClick={() => handleAcceptQuote(quote.id)}
+                    onClick={() => handleAcceptQuote(quote)}
                     className="btn-primary btn-small"
                   >
-                    Accept Quote
+                    Accept & Pay
                   </button>
                 </div>
               )}
 
               {quote.status === 'Accepted' && (
                 <div className="quote-accepted-notice">
-                  ✅ Quote accepted - Ready to place order
+                  ✅ Quote accepted - Order placed
                 </div>
               )}
             </div>
@@ -186,6 +207,15 @@ function DesignQuotes() {
             </div>
           </div>
         </div>
+      )}
+
+      {showPaymentForm && selectedQuote && (
+        <PaymentForm
+          quote={selectedQuote}
+          design={design}
+          onSuccess={handlePaymentSuccess}
+          onCancel={handlePaymentCancel}
+        />
       )}
     </div>
   );

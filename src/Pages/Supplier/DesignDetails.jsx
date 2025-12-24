@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { designAPI, quoteAPI } from '../../services/api';
+import MessageBox from '../../components/MessageBox';
 
 function DesignDetails() {
   const { id } = useParams();
@@ -9,6 +10,7 @@ function DesignDetails() {
   const [existingQuotes, setExistingQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showQuoteForm, setShowQuoteForm] = useState(false);
+  const [showMessageBox, setShowMessageBox] = useState(false);
   const [quoteData, setQuoteData] = useState({
     price: '',
     currency: 'USD',
@@ -158,12 +160,20 @@ function DesignDetails() {
             <div className="quote-prompt">
               <h3>Interested in this project?</h3>
               <p>Submit your quotation to the designer</p>
-              <button
-                onClick={() => setShowQuoteForm(true)}
-                className="btn-primary btn-large"
-              >
-                Submit Quote
-              </button>
+              <div className="action-buttons">
+                <button
+                  onClick={() => setShowQuoteForm(true)}
+                  className="btn-primary btn-large"
+                >
+                  📋 Submit Quote
+                </button>
+                <button
+                  onClick={() => setShowMessageBox(true)}
+                  className="btn-secondary btn-large"
+                >
+                  💬 Message Designer
+                </button>
+              </div>
 
               {existingQuotes.length > 0 && (
                 <div className="existing-quotes-info">
@@ -288,6 +298,15 @@ function DesignDetails() {
           )}
         </div>
       </div>
+
+      {showMessageBox && design && (
+        <MessageBox
+          userId={design.designerId}
+          userName={design.designerName || 'Designer'}
+          designId={parseInt(id)}
+          onClose={() => setShowMessageBox(false)}
+        />
+      )}
     </div>
   );
 }

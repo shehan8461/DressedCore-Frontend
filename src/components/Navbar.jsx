@@ -1,9 +1,29 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useState, useEffect } from 'react';
+import messageAPI from '../services/messageAPI';
 
 function Navbar() {
   const { user, logout, isDesigner, isSupplier } = useAuth();
   const navigate = useNavigate();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    if (user) {
+      loadUnreadCount();
+      const interval = setInterval(loadUnreadCount, 30000); // Check every 30 seconds
+      return () => clearInterval(interval);
+    }
+  }, [user]);
+
+  const loadUnreadCount = async () => {
+    try {
+      const data = await messageAPI.getUnreadCount();
+      setUnreadCount(data.unreadCount || 0);
+    } catch (error) {
+      console.error('Error loading unread count:', error);
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -25,6 +45,11 @@ function Navbar() {
                   <Link to="/designer/dashboard" className="nav-link">Dashboard</Link>
                   <Link to="/designer/designs" className="nav-link">My Designs</Link>
                   <Link to="/designer/new-design" className="nav-link">New Design</Link>
+                  <Link to="/messages" className="nav-link">
+                    💬 Messages
+                    {unreadCount > 0 && <span className="unread-badge">{unreadCount}</span>}
+                  </Link>
+                  <Link to="/payments" className="nav-link">💳 Payments</Link>
                 </>
               )}
               
@@ -33,6 +58,11 @@ function Navbar() {
                   <Link to="/supplier/dashboard" className="nav-link">Dashboard</Link>
                   <Link to="/supplier/designs" className="nav-link">Browse Designs</Link>
                   <Link to="/supplier/quotes" className="nav-link">My Quotes</Link>
+                  <Link to="/messages" className="nav-link">
+                    💬 Messages
+                    {unreadCount > 0 && <span className="unread-badge">{unreadCount}</span>}
+                  </Link>
+                  <Link to="/payments" className="nav-link">💳 Payments</Link>
                 </>
               )}
               

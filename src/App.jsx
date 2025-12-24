@@ -13,6 +13,8 @@ import SupplierDashboard from './Pages/Supplier/Dashboard';
 import BrowseDesigns from './Pages/Supplier/BrowseDesigns';
 import DesignDetails from './Pages/Supplier/DesignDetails';
 import MyQuotes from './Pages/Supplier/MyQuotes';
+import Messages from './Pages/Messages';
+import PaymentHistory from './Pages/PaymentHistory';
 import './App.css';
 
 function App() {
@@ -91,6 +93,24 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={['Supplier']}>
                     <MyQuotes />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Shared Routes - Messages and Payments */}
+              <Route
+                path="/messages"
+                element={
+                  <ProtectedRoute allowedRoles={['Designer', 'Supplier']}>
+                    <Messages />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/payments"
+                element={
+                  <ProtectedRoute allowedRoles={['Designer', 'Supplier']}>
+                    <PaymentHistory />
                   </ProtectedRoute>
                 }
               />
